@@ -1,0 +1,103 @@
+body{
+    font-family: raleway;
+}
+
+.sky-blue{
+    background-color: #2EBAEE !important;
+}
+
+.text-sky-blue{
+    color: #2EBAEE !important;
+}
+
+.marginZero{
+    margin: 0 !important;
+}
+
+.marginTop35{
+    margin-top: 35px !important;
+}
+
+.active{
+    font-weight: bold !important;
+}
+
+.fs-32{
+    font-size: 32px !important;
+}
+
+header{
+    height: 180px;
+    background-image: url('../images/bg-mountain.jpeg');
+    background-position: center;
+    background-size: cover;
+}
+
+.sidenav{
+    padding: 10px !important;
+}
+
+.sidenav > p{
+    margin: 0;
+    font-size: 14px;
+}
+
+.sidenav-trigger, .backButton{
+    z-index: 1;
+    position: absolute;
+}
+
+.sidenav-trigger{
+    top: 12px;
+    left: 3%;
+}
+
+.sidenav-trigger:hover{
+    background-color: #46529D;
+}
+
+.collection-item{
+    margin: 10px 0 !important;
+}
+
+.doneIcon:hover{
+    cursor: pointer;
+    background-color: green !important;
+}
+
+/* Footer */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+/* Footer */
+
+header, main, footer {
+    padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+    header, main, footer {
+        padding-left: 0;
+    }
+}
+
+/* Starting of To-Do Page */
+
+#to-do_main{
+    margin-top: 30px;
+}
+
+.backButton{
+    top: 47px;
+    right: 5%;
+}
+
+.input-field .prefix.active {
+    color: #03a9f4;
+}
