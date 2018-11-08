@@ -23,18 +23,18 @@ function addTodo() {
         return false;
     }
 
-    // localStorage code starting form here
+    // localStorage code starting from here
     var todo = { title: title, location: location, description: description, addedTime: addedTime }; // Creating an object of todo data
 
     var todoList = JSON.parse(localStorage.getItem('To-Do List')) || []; // getting item from localStorage OR 
     // Check if todo array is not created yet then create a new array of todo
 
-    todoList.push(todo); // when a new todo is creating, new todo adds into old todo list array
+    todoList.push(todo); // when a new todo is creating, new todo adds into todo list array
 
     var todosArray = JSON.stringify(todoList); // converting the array into original condition
 
     localStorage.setItem('To-Do List', todosArray); // Setting items into localStorage with a name of 'To-Do List'
-    // localStorage code ends form here
+    // localStorage code ends from here
 
     document.getElementById('message').innerHTML = '<span style="color: palegreen;">Your To-Do has been added successfully.</span>';
 
@@ -65,9 +65,14 @@ function getTodoItems() {
         var newITag = document.createElement('i');
         newITag.setAttribute('class', 'fas fa-check circle doneIcon');
         newITag.setAttribute('data-index', i);
-        newITag.style.backgroundColor = 'gray';
         newLiTag.appendChild(newITag);
         newITag.onclick = doneTodo;
+        
+        if("done" in value){
+            newITag.style.backgroundColor = 'green';
+        }else{
+            newITag.style.backgroundColor = 'gray';
+        }
 
         var newSpanTag = document.createElement('span');
         newSpanTag.setAttribute('class', 'title');
@@ -90,7 +95,7 @@ function getTodoItems() {
         newPTagForAddedTime.innerHTML = 'Added On: ' + value.addedTime;
         newLiTag.appendChild(newPTagForAddedTime);
 
-        if (value.updatedTime !== undefined) {
+        if ('updatedTime' in value) {
             var newPTagForUpdatedTime = document.createElement('p');
             newPTagForUpdatedTime.innerHTML = 'Updated On: ' + value.updatedTime;
             newLiTag.appendChild(newPTagForUpdatedTime);
@@ -130,7 +135,7 @@ function deleteTodo(event) {
     todoList.splice(todoIndex, 1)
     localStorage.setItem('To-Do List', JSON.stringify(todoList));
 
-    getTodoItems()
+    getTodoItems();
 }
 
 function goToEditPage(event) {
@@ -145,12 +150,13 @@ function putDataIntoField() {
     var todoIndex = Number(localStorage.getItem('toEdit'));
     var todoList = JSON.parse(localStorage.getItem('To-Do List'));
 
-    document.getElementById('title').value = todoList[todoIndex].title
-    document.getElementById('location1').value = todoList[todoIndex].location
-    document.getElementById('description').value = todoList[todoIndex].description
+    title.value = todoList[todoIndex].title;
+    location1.value = todoList[todoIndex].location;
+    description.value = todoList[todoIndex].description;
 }
 
 function editTodo() {
+
     var todoIndex = Number(localStorage.getItem('toEdit'));
     var todoList = JSON.parse(localStorage.getItem('To-Do List'));
 
@@ -171,4 +177,24 @@ function editTodo() {
     setInterval(function () {
         window.location.href = "/";
     }, 1000);
+}
+
+function doneTodo(event) {
+
+    var todoIndex = this.getAttribute('data-index');
+    var todoList = JSON.parse(localStorage.getItem('To-Do List'));
+    var currentTodo = todoList[todoIndex];
+
+    if ("done" in currentTodo) {
+
+        delete currentTodo.done;
+        this.style.backgroundColor = 'gray';
+        localStorage.setItem('To-Do List', JSON.stringify(todoList));
+        
+    }else{
+
+        currentTodo.done = 'done';
+        this.style.backgroundColor = 'green';
+        localStorage.setItem('To-Do List', JSON.stringify(todoList));
+    }
 }
